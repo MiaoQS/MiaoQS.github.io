@@ -1,0 +1,76 @@
+---
+layout: default
+title : Contact
+navbar_title: Contact
+container_class: container-fluid p-0
+text_mode: light
+---
+
+<!-- 顶部轮播 -->
+<div class="container-fluid p-0 mb-4" style="margin-top: -56px;">
+    {% include widgets/carousel.html
+       id="top-carousel"
+       images=site.data.carousel.top_banner
+       height="550px" %}
+</div>
+  
+
+
+{% assign cards_by_group = site.showcase | sort: "date" | reverse | where: "show", true | group_by_exp: "item", "item.group" %}
+
+<!-- Welcome 内容块（居中） -->
+<div class="container-custom py-0">
+    <div class="card border-0 shadow-none bg-transparent mx-auto" style="max-width: 1200px;">
+      <div class="card-body">
+        <h2 class="text-center mb-5">Contact Information</h2>
+        <div class="d-flex justify-content-center fs-4 mb-3">
+            <div class="text-end pe-2 fw-bold" style="min-width: 60px;">
+              Email:
+            </div>
+            <div class="text-start">
+                <a href="mailto:stark.yangfan@gmail.com">stark.yangfan@gmail.com</a>
+            </div>
+        </div>
+    
+        <!-- Address 部分左对齐缩进 -->
+        <div class="d-flex justify-content-center fs-4">
+            <div class="text-end pe-2 fw-bold" style="min-width: 90px;">
+              Address:
+            </div>
+            <div class="text-start">
+                <a href="https://www.google.com/maps/dir/40.4390121,-79.9525569/The+University+of+Maryland%E2%80%99s+Department+of+Mechanical+Engineering,+Glenn+L.+Martin+Hall,+4298+Campus+Dr,+College+Park,+MD+20742/@39.716015,-79.1023384,214017m/data=!3m3!1e3!4b1!5s0x89b7c6a2ec8e37bb:0xba6331b994a39ea8!4m10!4m9!1m1!4e1!1m5!1m1!1s0x89b7c6a318aa2d1d:0x5264568e95e517ee!2m2!1d-76.9379498!2d38.9889439!3e0?entry=ttu&g_ep=EgoyMDI1MDMyNS4xIKXMDSoASAFQAw%3D%3D" target="_blank">
+                    Glenn L. Martin Hall,<br>
+                    4298 Campus Dr,<br>
+                    College Park, MD 20742
+                </a>    
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="w-50 mx-auto text-center">
+        <em>Soccer is my second life.<br>
+        I am a loyal fan of Barcelona and Lione Messi.<br></em>
+        </div>
+
+        <hr>
+
+        <br>
+
+        <div class="w-50 mx-auto text-start">
+            <p style="line-height: 1.8;">
+                Please feel free to visit my friends' websites:<br>
+                <span style="padding-left: 6em;"><a href=https://nakranirudh.github.io/><em>Anirudh Nakra, an ECE PhD Student at UMD</em></a></span><br>
+                <span style="padding-left: 6em;"><a href=https://scholar.google.com/citations?hl=zh-CN&user=oPfnJC8AAAAJ><em>Chiang-Heng Chien, an ECE PhD student at Brown</em></a></span><br>
+                <span style="padding-left: 6em;"><a href=https://sites.google.com/view/nayeebrashid/home><em>Nayeeb Rashid, an ECE PhD Student at UMD</em></a></span><br>
+                <span style="padding-left: 6em;"><a href=https://www.shiqiwu.me><em>Shiqi Wu, a CS master student at CTH</em></a></span><br>
+                <span style="padding-left: 6em;"><a href=https://scholar.google.com/citations?hl=zh-CN&user=oYBlfUUAAAAJ><em>Yifan Guo, an ECE PhD student at Purdue</em></a></span><br>
+                <span style="padding-left: 6em;"><a href=https://scholar.google.com/citations?user=D38JPIoAAAAJ&hl=en><em>Zachary McBride Lazri, an ECE PhD Student at UMD</em></a></span><br>
+            </p>
+        </div>
+
+
+          
+      </div>
+    </div>
+  </div>

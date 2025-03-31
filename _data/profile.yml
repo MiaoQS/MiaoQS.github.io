@@ -1,0 +1,111 @@
+primary_name: "Yangfan Deng"
+secondary_name: ""
+navbar_name: "Yangfan's Website"
+
+positions:
+- logo: /assets/images/badges/UMD.png  # Logo is optional
+  name: "First Year PhD Student at the University of Maryland, College Park"
+- logo: /assets/images/badges/mortarboard.jpg
+  name: "Machine Learning, Dimensionality Reduction, Topological Data Analysis"
+- name: "<div style='margin: -15px 0;'></div>"
+- name: <b><span style='color:red;'>I am looking for a 2026 Summer Intern Position!</span></b>
+
+
+# email: ".com"
+# cv_link: link-to-your-cv-file
+gscholar: 4SSKzegAAAAJ  # This is an example, replace it with your own Google Scholar ID
+github: MiaoQS
+# twitter: your_twitter_id  # Do not include the '@' symbol
+# wechat_qrcode: /assets/images/etc/wechat.jpg
+# wechat_prompt: >-
+#   Please tell me your <strong>name</strong> and <strong>affiliation</strong> (current or past) when adding my wechat. Thanks!
+linkedin: 扬帆-邓-59577428a
+orcid: 0009-0000-0454-891X
+
+short_bio_text_justify: false
+short_bio: >-
+  <p>
+    <b>I am greaty intereted in intergrating Machine Learning and Mathematics to solve engineering challenges!</b>
+  </p>
+
+  <p>
+    I'm currently a first year PhD student in the department of <span style="color: #1E90FF;">Electrical and Computer Engineering</span>
+    from the University of Maryland, College Park. My advisor is <a href="https://ece.umd.edu/clark/faculty/497/Min-Wu" target="_blank">Professor Min Wu</a>, specializing in XXXX. I earned my MS degree from <a href="https://www.engineering.pitt.edu/" target="_blank">the University of Pittsburgh</a> 
+    with the major in <span style="color: #1E90FF;">Electrical and Computer Engineering</span>. I served as a RA in <a href="https://www.engineering.pitt.edu/people/faculty/zhi-hong-mao/" target="_blank">Professor Zhi-Hong Mao</a>'s intelligent control lab. 
+    He led by example and taught me how to become not only a good researcher but also a good person. I obtained my Bachelor of Science degree from <a href="https://math.ouc.edu.cn/" target="_blank">the 
+    School of Mathematical Sciences</a> at <a href="https://www.ouc.edu.cn/" target="_blank">the Ocean University of China</a>.
+    During my undergraduate, I was a RA in <a href="http://eweb.ouc.edu.cn/ms/2013/1231/c4086a14217/page.htm" target="_blank">Professor Yong Zhao</a>'s computer vision lab.
+    
+  </p>
+
+
+portrait_url: /assets/images/photos/profile.jpg
+# portrait_caption: >-
+#   Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
+
+education:
+- name: University of Maryland, College Park
+  logo: /assets/images/badges/UMD.png
+  position: >- 
+    Department of Electrical and Computer Engineering <br/>
+    Ph.D. Student
+  date: 2025 - present
+- name: University of Pittsburgh
+  logo: /assets/images/badges/UPitt.png
+  position: >- 
+    Department of Electrical and Computer Engineering <br/>
+    Master Degree (Research Track)
+  date: 2023-2025
+- name: Ocean University of China
+  logo: /assets/images/badges/OUC.png
+  position: >- 
+    School of Mathematical Science <br/>
+    Bachelor Degree <b>(Top 10%)</b>
+  date: 2018-2022
+
+# experience:
+# - name: Peking University
+#   logo: /assets/images/badges/PKU_red.png
+#   position: Research Intern
+#   date: Sep. 2019 - Jul. 2021
+
+awards:
+- name: Won the Dean's Fellowship from UMD
+  date: 2025
+- name: Won the National Second Prize in CUMCM
+  date: 2021
+- name: Won the Second Prize in Shandong Province in CUMCM
+  date: 2020
+- name: Won the First-Class Academic Scholarship (GPA Top 5%) 
+  date: 2019
+- name: Won the Third Prize in CNUMC
+  date: 2019
+
+experience_logos:
+  - logo: assets/images/badges/UMD.png
+    position: Research Assistant
+    department: Comcast Multimedia Signal Processing Laboratory
+    time: College Park, US, 2025-present
+
+  - logo: assets/images/badges/UPitt.png
+    position: Research Assistant
+    department: Intelligent Control Lab
+    time: Pittsburgh, US, 2023-2025
+
+  - logo: assets/images/badges/IBM.png
+    position: AI Research Intern
+    department: Department of Systems Supply Chain
+    time: Shenzhen, CHN, 2021 Summer
+    scale: 0.7
+
+  - logo: assets/images/badges/OUC.png
+    position: Research Assistant
+    department: Computer Vision and Graphic Lab
+    time: Qingdao, CHN, 2021-2023
+
+  - logo: assets/images/badges/China_Mobile.png
+    position: Intern Assistant of Project Manager
+    department: Department of Internet
+    time: Wuhan, CHN, 2019 Winter
+    scale: 0.7
+

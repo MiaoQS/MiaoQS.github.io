@@ -1,0 +1,14 @@
+<div class="card bg-transparent shadow-none border-0 my-4 p-4">
+  <h4 class="mb-3"><i class="fas fa-briefcase"></i>&nbsp; Experiences</h4>
+  <div class="row text-center">
+    {% for item in site.data.profile.experience_logos %}
+      <div class="col-6 col-md-3 mb-4">
+        <img src="{{ item.logo }}" class="img-fluid rounded mb-2" style="max-height:100px; transform: scale({{ item.scale | default: 1 }});" alt="Experience Logo">
+        <div class="my-1 font-weight-bold">{{ item.position }}</div>
+        <div class="my-1"><em>{{ item.department }}</em></div>
+        <div class="my-1 text-muted">{{ item.time }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+

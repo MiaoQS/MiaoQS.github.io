@@ -1,0 +1,30 @@
+top_banner:
+  - src: "assets/images/background/huiyili.jpg"
+    title: "We are all little monsters."
+    desc: "——Uesugi Eri"
+    title_color: "#ffffff"
+    desc_color: "#ffffff"
+  - src: "assets/images/background/xuezhong.jpg"
+    title: "In moments of doubt, seek counsel from the spring breeze"
+    trans: 遇事不决，可问春风
+    desc: "——Pingan Chen"
+    title_color: "#EE82EE"
+    desc_color: "#EE82EE"
+  - src: "assets/images/background/xiakexu.jpg"
+    title: "All the glory of a hundred-year legacy, the grandeur of a thousand-year empire, and the everlasting fame of ten thousand generations<br>—none of it compares to one simple thing: living your life in a way that you truly love"
+    trans: 所谓百年功名、千秋霸业、万古流芳，与一件事情相比，其实算不了什么。这件事情就是——用你喜欢的方式度过一生
+    desc: "——The Moon of Years Gone By"
+    title_color: "#000000"
+    desc_color: "#000000"
+  - src: "assets/images/background/richardlu.jpg"
+    title: "Time passed, and at last, he became the kind of man whose collar was lined with gold. And this type of man must one day walk alone onto the battlefield."
+    trans: 时间过去，他终于成为了那种领子里衬着黄金的男人。所有领子里撑着黄金的男人，都该独自上战场
+    desc: "——Richard Lu"
+    title_color: "#ffffff"
+    desc_color: "#ffffff"
+  - src: "assets/images/background/jianlai.png"
+    title: I speak of the noble one, gentle and graceful like jade.
+    trans: 言念君子，温润如玉
+    desc: "——Jingchun Qi"
+    title_color: "#ffffff"
+    desc_color: "#ffffff"

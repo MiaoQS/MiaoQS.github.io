@@ -1,0 +1,56 @@
+<div>
+    <div id="{{ include.id | slugify }}" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for item in include.images %}
+            <li data-target="#{{ include.id | slugify }}" data-slide-to="{{ forloop.index0 }}" {% if forloop.index == 1 %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner" style="height: {{ include.height }};">
+            {% for item in include.images %}
+            <div class="carousel-item {% if forloop.index == 1 %}active{% endif %}">
+                {% if item.link %}<a href="{{ item.link }}" target="_blank">{% endif %}
+                <!-- <div class="d-block w-100" -->
+                <div class="lazy always-load d-block rounded-sm" 
+                    style="
+                    height: {{ include.height }}; 
+                    background-image: url('{{ item.src | relative_url }}');
+                    background-size: cover; 
+                    background-position: top center; 
+                    background-repeat: no-repeat;">
+                </div>
+                
+                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center"
+                    style="inset: 0; pointer-events: none;">
+                    <div style="pointer-events: auto; text-align: center;">
+                        <p class="banner-title" style="color: {{ item.title_color | default: 'white' }};"><em>{{ item.title }}</em></p>
+                        <p class="banner-title" style="color: {{ item.title_color | default: 'white' }};"><em>{{ item.trans }}</em></p>
+                        <p class="banner-desc" style="color: {{ item.desc_color | default: '#eee' }}; padding-left: 140px; font-size: 16px"><em>{{ item.desc }}</em></p>
+                    </div>
+                </div>
+
+
+                <!-- <div class="carousel-caption d-flex flex-column justify-content-center align-items-center"
+                     style="top: 0; bottom: 0; left: 0; right: 0; position: absolute;">
+                    <p class="banner-title"><em>{{ item.title }}</em></p>
+                    <p class="banner-desc"><em>{{ item.desc }}</em></p>
+                </div> -->
+
+
+                <!-- <div class="carousel-caption d-none d-md-block">
+                    <h5>{{ item.title }}</h5>
+                    <p>{{ item.desc }}</p>
+                </div> -->
+                {% if item.link %}</a>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="carousel-control-prev" type="button" data-target="#{{ include.id | slugify }}" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </div>
+        <div class="carousel-control-next" type="button" data-target="#{{ include.id | slugify }}" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </div>
+    </div>
+</div>

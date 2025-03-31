@@ -1,0 +1,281 @@
+@charset "utf-8";
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: 400;
+    padding-top: 3rem;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: 700;
+}
+
+.text-profile-position {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.text-profile-bio {
+    /* font-family: "Raleway"; */
+    font-weight: 400;
+    font-size: 20px; 
+}
+
+.navbar {
+    opacity: 0.95;
+}
+
+.inline-badge {
+    height: 25px;
+    vertical-align: -10%;
+    margin-right: 2px;
+    line-break: unset;
+}
+
+.no-break {
+    white-space: nowrap;
+}
+
+.cover-image {
+    width: 180px;
+    max-height: 120px;
+}
+
+.abstract-body {
+    min-height: 100px;
+}
+
+img.lazy {
+    background-image: url('images/loading.gif');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 50px 50px;
+    min-height: 80px;
+}
+
+div.lazy {
+    background-image: url('images/loading.gif');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 50px 50px;
+    min-height: 80px;
+}
+
+.badge-publication {
+    font-size: 100%;
+}
+
+.email-text {
+    font-family: Courier, monospace;
+}
+
+.container-custom {
+    width: 100%;
+    max-width: 1440px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    /* border: none; */
+    /* display: flex; */
+    /* align-items: center;  确保子元素垂直居中 */
+}
+
+nav .container-custom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+  
+  
+  /* ========== Custom Font Sizes for Profile Sections ========== */
+
+/* 教育模块 */
+.media-body {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  /* 奖项模块 */
+  .d-flex {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+
+
+
+/*设置首页的导航栏*/
+
+.navbar-brand {
+  font-size: 1rem;        /* 网站标题更大 */
+  font-weight: bold;
+  
+}
+
+.nav-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333333 ;  /* 强制覆盖 Bootstrap 默认灰色 */
+}
+
+.nav-link:hover {
+  color: #007bff ;  /* 鼠标悬停变蓝 */
+}
+
+
+.navbar {
+    opacity: 0.95;
+    font-size: 1.1rem;         /* 整体字体大小略大 */
+    background-color: #ffffff; /* 强制背景白色 */
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;        /* 网站标题更大 */
+    font-weight: bold;
+  }
+  
+  .nav-link {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333333;  /* 强制覆盖 Bootstrap 默认灰色 */
+  }
+  
+  .nav-link:hover {
+    color: #007bff;  /* 鼠标悬停变蓝 */
+  }
+  
+
+h2[id^="year-"] {
+    scroll-margin-top: 120px;  /* 预留顶部空间，避免导航栏遮挡 */
+    min-height: 60px;
+  }
+  
+    
+
+.pub-cover-large {
+    width: 100%;            /* 宽度自动占满容器 */
+    height: auto;           /* 高度自动缩放（关键） */
+    max-height: none;      /* 可选：限制最大高度，避免太大 */
+    object-fit: contain;    /* 确保图片按原始比例完整显示 */
+    border-radius: 8px;
+    transition: transform 0.3s ease;  /* ⭐ 加上平滑过渡 */
+    cursor: pointer;
+  }
+  
+.pub-cover-large:hover {
+    transform: scale(1.08);           /* ⭐ 鼠标悬停时放大 */
+    z-index: 2;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);  /* 可选：加一点阴影更高级 */
+  }
+  
+
+.pub-mobile-cover {
+    min-height: 220px;
+    background-size: contain;   /* 或 cover */
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+.pub-img-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%; /* 确保占满父容器高度 */
+}
+
+.pub-title-link {
+    color: #FF7F7F ;
+    text-decoration: none;
+  }
+  
+  .pub-title-link:hover {
+    color: #ff8c94;
+    text-decoration: underline;
+  }
+  
+
+/* 设置导航栏的字体 */
+
+/* 整个导航栏压缩垂直空间 */
+nav.navbar {
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  line-height: 1; /* 紧凑的行高 */
+}
+
+/* 左上角的 navbar_name */
+.navbar-brand {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 0rem;
+  line-height: 1;
+  font-size: 1.5rem; /* 可选：略微缩小字号以节省空间 */
+  font-weight: normal;
+}
+
+/* 右侧菜单项 */
+.navbar-nav .nav-link {
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-top: 0rem;
+  line-height: 1;
+  font-size: 1.2rem;  
+}
+
+.navbar-with-bg {
+  background-image: url('../images/background/navigation_background.png');
+  background-size: cover;         /* 或 contain / 100% auto */
+  background-position: center;    /* 居中 */
+  background-repeat: no-repeat;   /* 不重复 */
+  border-bottom: none;
+  box-shadow: none;
+}
+
+/* #mainNavbar {
+  transition: background-color 0.3s ease, color 0.3s ease;
+} */
+
+/* 滚动后的导航栏样式 */
+.scrolled-navbar {
+  background-color: 	#B0C4DE !important; /* 深蓝色，换成你喜欢的颜色 */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 可选阴影，让它更立体 */
+}
+
+.scrolled-navbar .nav-link {
+  color: white !important; /* 滚动后链接变白色 */
+}
+
+.scrolled-navbar .navbar-brand {
+  color: white !important; /* 品牌名称变白 */
+  font-weight: normal;
+}
+
+.banner-title {
+  font-size: 20px;          /* 字体大小 */
+  font-weight: 400;         /* 粗细：700 = bold */
+  color: white;             /* 字体颜色 */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* 阴影增加可读性 */
+  margin-bottom: -5px;    
+}
+
+.banner-desc {
+  font-size: 20px;
+  font-weight: 400;
+  color: #eee;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  margin-bottom: 0px;
+}
+
+
+/* 粒子背景样式 */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1; /* 保证在最底层 */
+  background-color: #ffffff; /* 可选，可设为浅灰或渐变 */
+}
