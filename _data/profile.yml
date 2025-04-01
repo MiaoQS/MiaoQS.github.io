@@ -4,7 +4,7 @@ navbar_name: "Yangfan's Website"
 
 positions:
 - logo: /assets/images/badges/UMD.png  # Logo is optional
-  name: "First Year PhD Student at the University of Maryland, College Park"
+  name: "First Year Ph.D. Student at the University of Maryland, College Park"
 - logo: /assets/images/badges/mortarboard.jpg
   name: "Machine Learning, Dimensionality Reduction, Topological Data Analysis"
 - name: "<div style='margin: -15px 0;'></div>"
@@ -29,7 +29,7 @@ short_bio: >-
   </p>
 
   <p>
-    I'm currently a first year PhD student in the department of <span style="color: #1E90FF;">Electrical and Computer Engineering</span>
+    I'm currently a first year Ph.D. student in the department of <span style="color: #1E90FF;">Electrical and Computer Engineering</span>
     from the University of Maryland, College Park. My advisor is <a href="https://ece.umd.edu/clark/faculty/497/Min-Wu" target="_blank">Professor Min Wu</a>, specializing in XXXX. I earned my MS degree from <a href="https://www.engineering.pitt.edu/" target="_blank">the University of Pittsburgh</a> 
     with the major in <span style="color: #1E90FF;">Electrical and Computer Engineering</span>. I served as a RA in <a href="https://www.engineering.pitt.edu/people/faculty/zhi-hong-mao/" target="_blank">Professor Zhi-Hong Mao</a>'s intelligent control lab. 
     He led by example and taught me how to become not only a good researcher but also a good person. I obtained my Bachelor of Science degree from <a href="https://math.ouc.edu.cn/" target="_blank">the 
