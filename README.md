@@ -9,7 +9,7 @@
 <p>
     🎓 I'm currently a <b>first-year Ph.D. student</b> in the Department of <span style="color:#1E90FF;"><b>Electrical and Computer Engineering</b></span>
     at the <a href="https://www.umd.edu/" target="_blank"><b>University of Maryland, College Park</b></a>. My advisor is 
-    <a href="https://ece.umd.edu/clark/faculty/497/Min-Wu" target="_blank"><b>Professor Min Wu</b></a> 🧠, specializing in <i>XXXX</i>.
+    <a href="https://ece.umd.edu/clark/faculty/497/Min-Wu" target="_blank"><b>Professor Min Wu</b></a> 🧠.
 </p>
 
 <p>
