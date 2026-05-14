@@ -1,0 +1,901 @@
+---
+layout: default
+title: EEG-DIM Visualizer
+navbar_title: Projects
+permalink: /projects/eeg-dim-visualizer/
+---
+
+<style>
+  .eeg-dim-page {
+    color: #25313f;
+  }
+
+  .eeg-dim-hero,
+  .eeg-dim-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.05);
+  }
+
+  .eeg-dim-title {
+    font-size: 2.45rem;
+    line-height: 1.15;
+  }
+
+  .eeg-dim-subtitle {
+    color: #4c5d6f;
+    font-size: 1.25rem;
+    line-height: 1.55;
+  }
+
+  .eeg-dim-author-line {
+    color: #1686e8;
+    font-size: 1.18rem;
+    line-height: 1.8;
+  }
+
+  .eeg-dim-author-line sup {
+    color: #4c5d6f;
+    font-size: 0.62rem;
+    font-weight: 700;
+    margin-left: 1px;
+  }
+
+  .eeg-dim-affiliation-line {
+    color: #4a4f57;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .eeg-dim-citation-note {
+    color: #6c757d;
+    font-style: italic;
+  }
+
+  .eeg-dim-citation-note a {
+    color: #5f6975;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .eeg-dim-citation-note a:hover {
+    color: #2d5f96;
+  }
+
+  .eeg-dim-paper-btn {
+    border-radius: 999px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .eeg-dim-title-wrap {
+    position: relative;
+  }
+
+  .eeg-dim-logo-strip {
+    gap: 1.25rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .eeg-dim-logo {
+    max-height: 58px;
+    max-width: 150px;
+    object-fit: contain;
+  }
+
+  .eeg-dim-pipeline-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .eeg-dim-step {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 104px;
+    text-align: center;
+  }
+
+  .eeg-dim-step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e9f2fb;
+    color: #2d5f96;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .eeg-dim-bibtex {
+    background: #f6f8fa;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    color: #25313f;
+    font-size: 0.88rem;
+    white-space: pre-wrap;
+  }
+
+  .eeg-dim-dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+    gap: 1rem;
+  }
+
+  .eeg-dim-upload-zone {
+    background: #f7faff;
+    border: 1px dashed #9fc3e7;
+    border-radius: 8px;
+  }
+
+  .eeg-dim-field label {
+    color: #405266;
+    font-weight: 700;
+  }
+
+  .eeg-dim-help-text {
+    color: #65758a;
+    font-size: 0.93rem;
+    line-height: 1.55;
+  }
+
+  .eeg-dim-status {
+    border-radius: 8px;
+    display: none;
+    font-size: 0.95rem;
+  }
+
+  .eeg-dim-status.is-visible {
+    display: block;
+  }
+
+  .eeg-dim-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .eeg-dim-tab-button {
+    background: #ffffff;
+    border: 1px solid #c7d7e8;
+    border-radius: 999px;
+    color: #2d5f96;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 0.45rem 0.85rem;
+    transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+  }
+
+  .eeg-dim-tab-button.active,
+  .eeg-dim-tab-button:hover {
+    background: #2d5f96;
+    border-color: #2d5f96;
+    color: #ffffff;
+  }
+
+  .eeg-dim-plot-shell {
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    min-height: 690px;
+    overflow: hidden;
+  }
+
+  #eeg-dim-plot {
+    display: none;
+    height: 700px;
+    width: 100%;
+  }
+
+  .eeg-dim-placeholder {
+    color: #718096;
+    font-size: 1.05rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .eeg-dim-table {
+    font-size: 0.94rem;
+  }
+
+  .eeg-dim-table th {
+    color: #405266;
+    white-space: nowrap;
+  }
+
+  .eeg-dim-native-file {
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+  }
+
+  .eeg-dim-file-name {
+    color: #65758a;
+    display: block;
+    font-size: 0.94rem;
+    margin-top: 0.75rem;
+    word-break: break-word;
+  }
+
+  .eeg-dim-dashboard-title {
+    color: #25313f;
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 767.98px) {
+    .eeg-dim-title {
+      font-size: 2rem;
+    }
+
+    .eeg-dim-subtitle {
+      font-size: 1.08rem;
+    }
+
+    .eeg-dim-author-line {
+      font-size: 1.05rem;
+    }
+
+    .eeg-dim-logo {
+      max-height: 46px;
+    }
+
+    .eeg-dim-logo-strip {
+      position: static;
+      transform: none;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .eeg-dim-pipeline-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .eeg-dim-dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .eeg-dim-plot-shell {
+      min-height: 520px;
+    }
+
+    #eeg-dim-plot {
+      height: 520px;
+    }
+  }
+</style>
+
+<div class="eeg-dim-page py-4">
+  <section class="eeg-dim-hero p-4 p-md-5 mb-4">
+    <div class="eeg-dim-title-wrap mb-4 text-center">
+      <h1 class="eeg-dim-title mb-0">EEG-DIM Visualizer</h1>
+      <div class="eeg-dim-logo-strip d-flex align-items-center flex-wrap">
+        <img
+          class="eeg-dim-logo"
+          src="{{ '/assets/images/badges/UPitt.png' | relative_url }}"
+          alt="University of Pittsburgh logo"
+        >
+        <img
+          class="eeg-dim-logo"
+          src="{{ '/assets/images/badges/UMD.png' | relative_url }}"
+          alt="University of Maryland logo"
+        >
+      </div>
+    </div>
+
+    <div class="text-center mb-4">
+      <div class="eeg-dim-author-line mb-2">
+        Yangfan Deng<sup>1,2</sup>,
+        Hamad Albidah<sup>1</sup>,
+        Helen X. Mao<sup>3</sup>,
+        Ahmed Dallal<sup>1</sup>,
+        Jijun Yin<sup>1</sup>,
+        and Zhi-Hong Mao<sup>1</sup>
+      </div>
+      <div class="eeg-dim-affiliation-line mb-1">
+        <sup>1</sup>University of Pittsburgh &nbsp;&nbsp;
+        <sup>2</sup>University of Maryland, College Park &nbsp;&nbsp;
+        <sup>3</sup>Yale University
+      </div>
+      <div class="mt-3">
+        <a
+          class="btn btn-dark eeg-dim-paper-btn mr-2 mb-2"
+          href="https://arxiv.org/abs/2409.00565"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fas fa-file-lines mr-2"></i>arXiv Paper
+        </a>
+        <button
+          class="btn btn-dark eeg-dim-paper-btn mb-2"
+          type="button"
+          data-toggle="collapse"
+          data-target="#eeg-dim-bibtex"
+          aria-expanded="false"
+          aria-controls="eeg-dim-bibtex"
+        >
+          <i class="fas fa-book mr-2"></i>BibTeX
+        </button>
+      </div>
+    </div>
+
+    <p class="eeg-dim-subtitle text-center mb-2">
+      Interactive visualization of EEG signals for sleep stages using 2D/3D PCA, t-SNE, and UMAP embeddings.
+    </p>
+    <p class="eeg-dim-affiliation-line eeg-dim-citation-note text-center mb-3">
+      If you find our work useful, please
+      <a
+        href="#eeg-dim-bibtex"
+        data-toggle="collapse"
+        role="button"
+        aria-expanded="false"
+        aria-controls="eeg-dim-bibtex"
+      >cite our paper</a>. Thanks! :)
+    </p>
+
+    <div class="collapse" id="eeg-dim-bibtex">
+      <pre class="eeg-dim-bibtex p-3 mb-0"><code>@article{deng2024twostage,
+  title={Two-Stage Hierarchical and Explainable Feature Selection Framework for Dimensionality Reduction in Sleep Staging},
+  author={Deng, Yangfan and Albidah, Hamad and Mao, Helen X. and Dallal, Ahmed and Yin, Jijun and Mao, Zhi-Hong},
+  journal={arXiv preprint arXiv:2409.00565},
+  year={2024}
+}</code></pre>
+    </div>
+  </section>
+
+  <section class="mb-4">
+    <h2 class="mb-3">Pipeline Overview</h2>
+    <div class="eeg-dim-pipeline-grid">
+      <div class="eeg-dim-step p-3">
+        <span class="eeg-dim-step-number mb-3">1</span>
+        <h3 class="h6 mb-0">NPZ upload</h3>
+      </div>
+      <div class="eeg-dim-step p-3">
+        <span class="eeg-dim-step-number mb-3">2</span>
+        <h3 class="h6 mb-0">Spread-Spectral Features Calculation</h3>
+      </div>
+      <div class="eeg-dim-step p-3">
+        <span class="eeg-dim-step-number mb-3">3</span>
+        <h3 class="h6 mb-0">PCA / t-SNE / UMAP</h3>
+      </div>
+      <div class="eeg-dim-step p-3">
+        <span class="eeg-dim-step-number mb-3">4</span>
+        <h3 class="h6 mb-0">Interactive 2D/3D visualization</h3>
+      </div>
+      <div class="eeg-dim-step p-3">
+        <span class="eeg-dim-step-number mb-3">5</span>
+        <h3 class="h6 mb-0">Top-5 feature contributions</h3>
+      </div>
+    </div>
+  </section>
+
+  <section class="eeg-dim-card p-4 p-md-5 mb-4" id="eeg-dim-runner">
+    <div class="mb-4">
+      <h2 class="mb-2">Upload NPZ and Run EEG-DIM</h2>
+      <p class="mb-2">Please upload an EEG sleep-stage NPZ file.</p>
+      <p class="eeg-dim-help-text mb-0">
+        The file should contain an EEG signal matrix or feature matrix, with optional sleep-stage labels.
+        Example public sleep datasets:
+        <a href="https://sleeptight.isr.uc.pt/?page_id=48" target="_blank" rel="noopener">ISRUC</a>
+        and
+        <a href="https://physionet.org/content/sleep-edfx/1.0.0/" target="_blank" rel="noopener">PhysioNet Sleep-EDF</a>.
+      </p>
+      <p class="eeg-dim-help-text mt-2 mb-0">
+        A default visualization demo from the PhysioNet Sleep-EDF dataset is shown below; you can freely interact
+        with the plot and switch between embedding views.
+      </p>
+    </div>
+
+    <div class="eeg-dim-dashboard-grid">
+      <div class="eeg-dim-upload-zone p-4">
+        <div class="eeg-dim-field mb-3">
+          <label for="eeg-dim-file">NPZ file</label>
+          <div>
+            <input class="eeg-dim-native-file" id="eeg-dim-file" type="file" accept=".npz">
+            <label class="btn btn-outline-primary mb-0" for="eeg-dim-file">
+              <i class="fas fa-file-upload mr-2"></i>Choose NPZ File
+            </label>
+            <span class="eeg-dim-file-name" id="eeg-dim-file-name">No file selected.</span>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-lg" id="eeg-dim-run-button" type="button">
+          <i class="fas fa-play mr-2"></i>Run EEG-DIM
+        </button>
+        <p class="eeg-dim-help-text mt-3 mb-0">
+          The API is called once per run. Plot tabs below use the cached response and do not re-run the backend.
+        </p>
+      </div>
+
+      <div class="p-4 bg-light border rounded">
+        <h3 class="h5 mb-3">Run Settings</h3>
+        <div class="form-row">
+          <div class="form-group col-md-6 eeg-dim-field">
+            <label for="eeg-dim-max-rows">Max rows for final plots</label>
+            <input class="form-control" id="eeg-dim-max-rows" type="number" min="50" max="3000" value="1500">
+          </div>
+          <div class="form-group col-md-6 eeg-dim-field">
+            <label for="eeg-dim-search-sample">Auto-search sample size</label>
+            <input class="form-control" id="eeg-dim-search-sample" type="number" min="50" max="1000" value="400">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6 eeg-dim-field">
+            <label for="eeg-dim-search-budget">Auto-search budget</label>
+            <select class="form-control" id="eeg-dim-search-budget">
+              <option value="fast" selected>fast</option>
+              <option value="balanced">balanced</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6 eeg-dim-field">
+            <label>Auto-search</label>
+            <div class="custom-control custom-checkbox mt-2">
+              <input class="custom-control-input" id="eeg-dim-auto-search" type="checkbox">
+              <label class="custom-control-label" for="eeg-dim-auto-search">Enable parameter search</label>
+            </div>
+          </div>
+        </div>
+        <p class="eeg-dim-help-text mb-0">
+          Auto-search is optional and slower on CPU Basic. It is off by default for responsiveness.
+        </p>
+      </div>
+    </div>
+
+    <div class="eeg-dim-status alert mt-4 mb-0" id="eeg-dim-status" role="status"></div>
+  </section>
+
+  <section class="eeg-dim-card p-4 p-md-5 mb-4">
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center mb-3">
+      <div>
+        <h2 class="eeg-dim-dashboard-title mb-2">Visualization Dashboard</h2>
+      </div>
+      <div class="eeg-dim-tabs mt-3 mt-lg-0" aria-label="Plot selection">
+        <button class="eeg-dim-tab-button" type="button" data-plot-key="pca_2d">PCA 2D</button>
+        <button class="eeg-dim-tab-button" type="button" data-plot-key="pca_3d">PCA 3D</button>
+        <button class="eeg-dim-tab-button" type="button" data-plot-key="tsne_2d">t-SNE 2D</button>
+        <button class="eeg-dim-tab-button" type="button" data-plot-key="tsne_3d">t-SNE 3D</button>
+        <button class="eeg-dim-tab-button" type="button" data-plot-key="umap_2d">UMAP 2D</button>
+        <button class="eeg-dim-tab-button active" type="button" data-plot-key="umap_3d">UMAP 3D</button>
+      </div>
+    </div>
+
+    <div class="eeg-dim-plot-shell mb-4">
+      <div class="eeg-dim-placeholder" id="eeg-dim-plot-placeholder">
+        Upload an NPZ file and run EEG-DIM to view embeddings.
+      </div>
+      <div id="eeg-dim-plot"></div>
+    </div>
+
+    <div>
+      <h3 class="h4 mb-3">Top-5 feature contributions</h3>
+      <div class="table-responsive">
+        <table class="table table-sm table-striped eeg-dim-table mb-2">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Feature code</th>
+              <th>Feature name</th>
+              <th>Contribution</th>
+            </tr>
+          </thead>
+          <tbody id="eeg-dim-feature-body">
+            <tr>
+              <td colspan="4" class="text-muted">Run EEG-DIM to view top feature contributions.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="eeg-dim-status alert alert-danger mb-4" id="eeg-dim-error-card" role="alert"></div>
+
+  <section class="eeg-dim-card p-4 p-md-5 mb-4">
+    <h2 class="h4 mb-3">Auto-search selected hyperparameters</h2>
+    <div class="table-responsive">
+      <table class="table table-sm table-striped eeg-dim-table mb-0">
+        <thead>
+          <tr>
+            <th>method</th>
+            <th>dimensions</th>
+            <th>accuracy</th>
+            <th>perplexity</th>
+            <th>iterations</th>
+            <th>learning_rate</th>
+            <th>n_neighbors</th>
+            <th>min_dist</th>
+            <th>metric</th>
+          </tr>
+        </thead>
+        <tbody id="eeg-dim-hyperparams-body">
+          <tr>
+            <td colspan="9" class="text-muted">Run EEG-DIM to view selected hyperparameters.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script type="module">
+  import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
+
+  const SPACE_URL = "https://severus-deng-eeg-dim-visualizer-api.hf.space";
+  const DEFAULT_DEMO_URL = "{{ '/assets/data/eeg-dim-default-demo.json' | relative_url }}";
+  const DEFAULT_PLOT_KEY = "umap_3d";
+  const PLOT_LABELS = {
+    pca_2d: "PCA 2D",
+    pca_3d: "PCA 3D",
+    tsne_2d: "t-SNE 2D",
+    tsne_3d: "t-SNE 3D",
+    umap_2d: "UMAP 2D",
+    umap_3d: "UMAP 3D"
+  };
+
+  const state = {
+    clientPromise: null,
+    response: null,
+    activePlotKey: DEFAULT_PLOT_KEY
+  };
+
+  const elements = {
+    file: document.getElementById("eeg-dim-file"),
+    fileName: document.getElementById("eeg-dim-file-name"),
+    runButton: document.getElementById("eeg-dim-run-button"),
+    maxRows: document.getElementById("eeg-dim-max-rows"),
+    autoSearch: document.getElementById("eeg-dim-auto-search"),
+    autoSearchSample: document.getElementById("eeg-dim-search-sample"),
+    autoSearchBudget: document.getElementById("eeg-dim-search-budget"),
+    status: document.getElementById("eeg-dim-status"),
+    errors: document.getElementById("eeg-dim-error-card"),
+    plot: document.getElementById("eeg-dim-plot"),
+    plotPlaceholder: document.getElementById("eeg-dim-plot-placeholder"),
+    featureBody: document.getElementById("eeg-dim-feature-body"),
+    hyperparamsBody: document.getElementById("eeg-dim-hyperparams-body"),
+    tabs: Array.from(document.querySelectorAll(".eeg-dim-tab-button"))
+  };
+
+  function clampNumber(value, min, max, fallback) {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) {
+      return fallback;
+    }
+    return Math.min(max, Math.max(min, Math.round(parsed)));
+  }
+
+  function getClient() {
+    if (!state.clientPromise) {
+      state.clientPromise = Client.connect(SPACE_URL);
+    }
+    return state.clientPromise;
+  }
+
+  async function uploadFileToSpace(client, file) {
+    const root = client.config && client.config.root ? client.config.root : SPACE_URL;
+    const apiPrefix = client.api_prefix || "";
+    const uploadUrl = `${root}${apiPrefix}/upload`;
+    const formData = new FormData();
+    formData.append("files", file, file.name);
+
+    const response = await fetch(uploadUrl, {
+      method: "POST",
+      body: formData,
+      credentials: "include"
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`File upload failed with HTTP ${response.status}: ${errorText}`);
+    }
+
+    const uploadedPaths = await response.json();
+    if (!Array.isArray(uploadedPaths) || !uploadedPaths[0]) {
+      throw new Error("File upload failed because the API did not return an uploaded file path.");
+    }
+
+    return {
+      path: uploadedPaths[0],
+      orig_name: file.name,
+      size: file.size,
+      mime_type: file.type || "application/octet-stream",
+      meta: { _type: "gradio.FileData" }
+    };
+  }
+
+  function setStatus(message, type = "info") {
+    elements.status.className = `eeg-dim-status alert alert-${type} mt-4 mb-0 is-visible`;
+    elements.status.textContent = message;
+  }
+
+  function clearStatus() {
+    elements.status.className = "eeg-dim-status alert mt-4 mb-0";
+    elements.status.textContent = "";
+  }
+
+  function setRunState(isRunning) {
+    elements.runButton.disabled = isRunning;
+    elements.runButton.innerHTML = isRunning
+      ? '<i class="fas fa-spinner fa-spin mr-2"></i>Running...'
+      : '<i class="fas fa-play mr-2"></i>Run EEG-DIM';
+  }
+
+  function showCard(element, html, typeClass) {
+    element.className = `eeg-dim-status alert ${typeClass} mb-4 is-visible`;
+    element.innerHTML = html;
+  }
+
+  function hideCard(element, typeClass) {
+    element.className = `eeg-dim-status alert ${typeClass} mb-4`;
+    element.innerHTML = "";
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function formatValue(value) {
+    if (value === null || value === undefined || value === "") {
+      return "-";
+    }
+    if (typeof value === "number") {
+      return Number.isInteger(value) ? String(value) : value.toFixed(4);
+    }
+    if (Array.isArray(value)) {
+      return JSON.stringify(value);
+    }
+    if (typeof value === "object") {
+      return JSON.stringify(value);
+    }
+    return String(value);
+  }
+
+  function clearTable(tbody, message) {
+    tbody.innerHTML = "";
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.className = "text-muted";
+    cell.colSpan = 4;
+    cell.textContent = message;
+    row.appendChild(cell);
+    tbody.appendChild(row);
+  }
+
+  function renderError(message) {
+    showCard(elements.errors, `<strong>Error</strong><div class="mt-2">${escapeHtml(message || "The API returned an error.")}</div>`, "alert-danger");
+  }
+
+  function clearError() {
+    hideCard(elements.errors, "alert-danger");
+  }
+
+  function setActiveTab(plotKey) {
+    state.activePlotKey = plotKey;
+    elements.tabs.forEach((button) => {
+      button.classList.toggle("active", button.dataset.plotKey === plotKey);
+    });
+  }
+
+  function showPlotPlaceholder(message) {
+    if (window.Plotly && elements.plot) {
+      Plotly.purge(elements.plot);
+    }
+    elements.plot.style.display = "none";
+    elements.plotPlaceholder.style.display = "block";
+    elements.plotPlaceholder.textContent = message;
+  }
+
+  function renderPlot(plotKey) {
+    if (!state.response) {
+      showPlotPlaceholder("Upload an NPZ file and run EEG-DIM to view embeddings.");
+      clearTable(elements.featureBody, "Run EEG-DIM to view top feature contributions.");
+      return;
+    }
+
+    const fig = state.response.plots && state.response.plots[plotKey];
+    if (!fig) {
+      showPlotPlaceholder("This plot was not generated.");
+      renderFeatureTable(state.response.top_features && state.response.top_features[plotKey]);
+      return;
+    }
+
+    const layout = {
+      ...fig.layout,
+      autosize: true,
+      height: plotKey.endsWith("_3d") ? 720 : 650,
+      margin: { l: 40, r: 20, t: 20, b: 40, ...(fig.layout && fig.layout.margin ? fig.layout.margin : {}) }
+    };
+
+    elements.plot.style.height = `${layout.height}px`;
+    elements.plot.style.display = "block";
+    elements.plotPlaceholder.style.display = "none";
+    Plotly.react(elements.plot, fig.data, layout, { responsive: true });
+    renderFeatureTable(state.response.top_features && state.response.top_features[plotKey]);
+  }
+
+  function renderFeatureTable(rows = []) {
+    elements.featureBody.innerHTML = "";
+    if (!rows || rows.length === 0) {
+      clearTable(elements.featureBody, `No top features returned for ${PLOT_LABELS[state.activePlotKey]}.`);
+      return;
+    }
+
+    rows.forEach((item) => {
+      const row = document.createElement("tr");
+      ["rank", "feature_code", "feature_name", "contribution"].forEach((key) => {
+        const cell = document.createElement("td");
+        cell.textContent = formatValue(item[key]);
+        row.appendChild(cell);
+      });
+      elements.featureBody.appendChild(row);
+    });
+  }
+
+  function formatAccuracy(value) {
+    if (value === null || value === undefined || value === "") {
+      return "";
+    }
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) {
+      return String(value);
+    }
+    return `${numeric.toFixed(2)}%`;
+  }
+
+  function getParamValue(params, keys) {
+    for (const key of keys) {
+      if (params && params[key] !== undefined && params[key] !== null) {
+        return params[key];
+      }
+    }
+    return "";
+  }
+
+  function renderHyperparameterTable(selectedParams = {}) {
+    const rows = [
+      ["t-SNE", 2, selectedParams.tsne_2d || {}],
+      ["t-SNE", 3, selectedParams.tsne_3d || {}],
+      ["UMAP", 2, selectedParams.umap_2d || {}],
+      ["UMAP", 3, selectedParams.umap_3d || {}]
+    ];
+
+    elements.hyperparamsBody.innerHTML = "";
+    rows.forEach(([method, dimensions, params]) => {
+      const values = [
+        method,
+        dimensions,
+        formatAccuracy(getParamValue(params, ["accuracy"])),
+        getParamValue(params, ["perplexity"]),
+        getParamValue(params, ["iterations", "n_iter", "max_iter"]),
+        getParamValue(params, ["learning_rate"]),
+        getParamValue(params, ["n_neighbors"]),
+        getParamValue(params, ["min_dist"]),
+        getParamValue(params, ["metric"])
+      ];
+
+      const row = document.createElement("tr");
+      values.forEach((value) => {
+        const cell = document.createElement("td");
+        cell.textContent = value === "" ? "" : formatValue(value);
+        row.appendChild(cell);
+      });
+      elements.hyperparamsBody.appendChild(row);
+    });
+  }
+
+  function resetHyperparameterTable() {
+    elements.hyperparamsBody.innerHTML = '<tr><td colspan="9" class="text-muted">Run EEG-DIM to view selected hyperparameters.</td></tr>';
+  }
+
+  async function loadDefaultDemo() {
+    try {
+      const response = await fetch(DEFAULT_DEMO_URL, { cache: "force-cache" });
+      if (!response.ok) {
+        throw new Error(`Default demo could not be loaded: HTTP ${response.status}`);
+      }
+      const demo = await response.json();
+      state.response = demo;
+      setActiveTab(DEFAULT_PLOT_KEY);
+      renderPlot(DEFAULT_PLOT_KEY);
+      renderHyperparameterTable(demo.selected_params || {});
+    } catch (error) {
+      console.warn(error);
+      showPlotPlaceholder("Upload an NPZ file and run EEG-DIM to view embeddings.");
+      resetHyperparameterTable();
+    }
+  }
+
+  async function runEEGDim() {
+    const file = elements.file.files[0];
+    if (!file || !file.name.toLowerCase().endsWith(".npz")) {
+      setStatus("Please choose a .npz file before running EEG-DIM.", "warning");
+      return;
+    }
+
+    const settings = {
+      max_rows: clampNumber(elements.maxRows.value, 50, 3000, 1500),
+      auto_search: elements.autoSearch.checked,
+      auto_search_sample_size: clampNumber(elements.autoSearchSample.value, 50, 1000, 400),
+      auto_search_budget: elements.autoSearchBudget.value === "balanced" ? "balanced" : "fast"
+    };
+
+    setRunState(true);
+    clearError();
+    resetHyperparameterTable();
+    setStatus("Running on Hugging Face CPU Basic. This may take tens of seconds for larger files.", "info");
+
+    try {
+      const client = await getClient();
+      setStatus("Uploading NPZ file to Hugging Face Spaces...", "info");
+      const uploadedFile = await uploadFileToSpace(client, file);
+      setStatus("Running on Hugging Face CPU Basic. This may take tens of seconds for larger files.", "info");
+      const result = await client.predict("/run_eeg_dim", {
+        npz_file: uploadedFile,
+        ...settings
+      });
+      const response = result && result.data ? result.data[0] : null;
+
+      if (!response) {
+        throw new Error("The API returned an empty response.");
+      }
+
+      state.response = response;
+      renderHyperparameterTable(response.selected_params || {});
+
+      if (response.status === "error") {
+        renderError(response.message);
+        showPlotPlaceholder("The API returned an error. Please check the message below.");
+        clearTable(elements.featureBody, "No top features available because the run failed.");
+        setStatus("Run finished with an API error.", "danger");
+        return;
+      }
+
+      setActiveTab(DEFAULT_PLOT_KEY);
+      renderPlot(DEFAULT_PLOT_KEY);
+      setStatus(response.message || "EEG-DIM run completed successfully.", "success");
+    } catch (error) {
+      const message = error && error.message ? error.message : String(error);
+      state.response = null;
+      renderError(message);
+      showPlotPlaceholder("The run failed. Please check the error message below.");
+      clearTable(elements.featureBody, "No top features available because the run failed.");
+      setStatus(`Run failed before a valid API response was received: ${message}`, "danger");
+    } finally {
+      setRunState(false);
+    }
+  }
+
+  elements.runButton.addEventListener("click", runEEGDim);
+  elements.file.addEventListener("change", () => {
+    const file = elements.file.files[0];
+    elements.fileName.textContent = file ? file.name : "No file selected.";
+  });
+  elements.tabs.forEach((button) => {
+    button.addEventListener("click", () => {
+      const plotKey = button.dataset.plotKey;
+      setActiveTab(plotKey);
+      renderPlot(plotKey);
+    });
+  });
+  loadDefaultDemo();
+</script>

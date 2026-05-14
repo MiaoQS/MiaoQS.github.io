@@ -5,12 +5,6 @@ permalink: /cv/
 ---
 
 <div class="container-lg"><!-- 使用 py-5 加大上下边距 -->
-    <!-- 按钮区域 -->
-    <div class="text-center mb-4 mt-2">
-        <button id="btn-resume" class="btn btn-outline-secondary mx-2" onclick="toggleActive(this)">Resume</button>
-        <button id="btn-academic" class="btn btn-outline-secondary mx-2" onclick="toggleActive(this)">Academic CV</button>
-    </div>
-
   <!-- 下载链接 -->
   <!-- <div class="text-right mb-2">
     <a id="cv-download-link" href="{{ site.baseurl }}/assets/cv/resume.pdf" target="_blank" class="btn btn-sm btn-dark">
@@ -23,34 +17,5 @@ permalink: /cv/
     <iframe id="cv-frame" class="embed-responsive-item" src="{{ site.baseurl }}/assets/cv/resume.pdf" allowfullscreen></iframe>
   </div>
 </div>
-
-
-
-<!-- 切换功能 -->
-<script>
-    const baseurl = "{{ site.baseurl }}";
-  
-    function toggleActive(button) {
-      const iframe = document.getElementById("cv-frame");
-      const link = document.getElementById("cv-download-link");
-  
-      if (button.id === "btn-resume") {
-        iframe.src = `${baseurl}/assets/cv/resume.pdf`;
-        link.href = `${baseurl}/assets/cv/resume.pdf`;
-      } else if (button.id === "btn-academic") {
-        iframe.src = `${baseurl}/assets/cv/cv.pdf`;
-        link.href = `${baseurl}/assets/cv/cv.pdf`;
-      }
-  
-      // 切换按钮颜色
-      if (button.classList.contains("btn-outline-secondary")) {
-        button.classList.remove("btn-outline-secondary");
-        button.classList.add("btn-outline-primary");
-      } else {
-        button.classList.remove("btn-primary");
-        button.classList.add("btn-outline-secondary");
-      }
-    }
-</script>
   
   

@@ -6,9 +6,9 @@ positions:
 - logo: /assets/images/badges/UMD.png  # Logo is optional
   name: "First Year Ph.D. Student at the University of Maryland, College Park"
 - logo: /assets/images/badges/mortarboard.jpg
-  name: "Machine Learning, Dimensionality Reduction, Topological Data Analysis"
+  name: "Machine Learning, Computer Graphics, Signal Processing, Topological Data Analysis"
 - name: "<div style='margin: -15px 0;'></div>"
-- name: <b><span style='color:red;'>I am looking for a 2026 Summer Intern Position!</span></b>
+- name: <b><span style='color:red;'>I am looking for a 2027 Summer Intern Position!</span></b>
 
 
 # email: ".com"
@@ -39,7 +39,7 @@ short_bio: >-
   </p>
 
 
-portrait_url: /assets/images/photos/profile.jpg
+portrait_url: /assets/images/photos/profile-transparent.png
 # portrait_caption: >-
 #   Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
 
@@ -108,4 +108,3 @@ experience_logos:
     department: Department of Internet
     time: Wuhan, CHN, 2019 Winter
     scale: 0.7
-
