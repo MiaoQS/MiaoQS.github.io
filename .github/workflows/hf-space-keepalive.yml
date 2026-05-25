@@ -43,7 +43,7 @@ jobs:
             SUBJECT="$2"
             BODY="$3"
 
-            printf "From: %s\nTo: %s\nSubject: %s\n\n%s\n" \
+            printf "From: %s\nTo: %s\nSubject: %s\n\n%b\n" \
               "$SMTP_USERNAME" "$TO" "$SUBJECT" "$BODY" > /tmp/mail.txt
 
             curl --url "smtps://smtp.gmail.com:465" \
@@ -69,12 +69,7 @@ jobs:
             if [ "$COUNT" -ge 4 ]; then
               echo "Reached 4 successful pings. Sending success email."
 
-              SUCCESS_BODY="The EEG-DIM Visualizer API has been successfully reached 4 consecutive times over approximately 48 hours.
-
-Space URL:
-$SPACE_URL
-
-This means the scheduled keep-alive workflow is working."
+              SUCCESS_BODY="The EEG-DIM Visualizer API has been successfully reached 4 consecutive times over approximately 48 hours.\n\nSpace URL:\n${SPACE_URL}\n\nThis means the scheduled keep-alive workflow is working."
 
               send_mail "$SUCCESS_TO" \
                 "Hugging Face Space keep-alive succeeded for 48 hours" \
@@ -91,12 +86,7 @@ This means the scheduled keep-alive workflow is working."
             echo "Ping failed."
             echo "0" > "$COUNT_FILE"
 
-            FAILURE_BODY="The EEG-DIM Visualizer API could not be reached.
-
-Space URL:
-$SPACE_URL
-
-Please check the Hugging Face Space status."
+            FAILURE_BODY="The EEG-DIM Visualizer API could not be reached.\n\nSpace URL:\n${SPACE_URL}\n\nPlease check the Hugging Face Space status."
 
             send_mail "$FAILURE_TO" \
               "Hugging Face Space keep-alive failed" \
