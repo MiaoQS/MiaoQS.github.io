@@ -1,0 +1,117 @@
+name: Keep Hugging Face Space Alive
+
+on:
+  schedule:
+    # Run every 12 hours.
+    # GitHub Actions cron uses UTC time.
+    # 05:17 UTC and 17:17 UTC are intentionally not on the exact hour.
+    - cron: "17 5,17 * * *"
+
+  # Allows manual testing from the GitHub Actions page.
+  workflow_dispatch:
+
+jobs:
+  ping-space:
+    runs-on: ubuntu-latest
+
+    env:
+      SPACE_URL: "https://severus-deng-eeg-dim-visualizer-api.hf.space/"
+      SUCCESS_TO: "stark.yangfan@gmail.com"
+      FAILURE_TO: "yfandeng@umd.edu"
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+
+    steps:
+      - name: Restore success counter
+        uses: actions/cache/restore@v4
+        with:
+          path: .hf-ping-state
+          key: hf-ping-state-${{ github.run_id }}
+          restore-keys: |
+            hf-ping-state-
+
+      - name: Ping Hugging Face Space
+        id: ping
+        shell: bash
+        run: |
+          mkdir -p .hf-ping-state
+          COUNT_FILE=".hf-ping-state/success_count"
+
+          if [ ! -f "$COUNT_FILE" ]; then
+            echo "0" > "$COUNT_FILE"
+          fi
+
+          send_mail () {
+            TO="$1"
+            SUBJECT="$2"
+            BODY="$3"
+
+            cat > /tmp/mail.txt <<EOF
+From: $SMTP_USERNAME
+To: $TO
+Subject: $SUBJECT
+
+$BODY
+EOF
+
+            curl --url "smtps://smtp.gmail.com:465" \
+              --ssl-reqd \
+              --mail-from "$SMTP_USERNAME" \
+              --mail-rcpt "$TO" \
+              --user "$SMTP_USERNAME:$SMTP_PASSWORD" \
+              --upload-file /tmp/mail.txt
+          }
+
+          echo "Current success count:"
+          cat "$COUNT_FILE"
+
+          echo "Pinging Hugging Face Space:"
+          echo "$SPACE_URL"
+
+          if curl -L --fail --silent --show-error --max-time 180 --retry 2 --retry-delay 30 "$SPACE_URL" > /tmp/hf_response.txt; then
+            echo "Ping succeeded."
+
+            COUNT=$(cat "$COUNT_FILE")
+            COUNT=$((COUNT + 1))
+
+            if [ "$COUNT" -ge 4 ]; then
+              echo "Reached 4 successful pings. Sending success email."
+
+              send_mail "$SUCCESS_TO" \
+                "Hugging Face Space keep-alive succeeded for 48 hours" \
+                "The EEG-DIM Visualizer API has been successfully reached 4 consecutive times over approximately 48 hours.
+
+Space URL:
+$SPACE_URL
+
+This means the scheduled keep-alive workflow is working."
+
+              COUNT=0
+            fi
+
+            echo "$COUNT" > "$COUNT_FILE"
+            echo "Updated success count:"
+            cat "$COUNT_FILE"
+
+          else
+            echo "Ping failed."
+            echo "0" > "$COUNT_FILE"
+
+            send_mail "$FAILURE_TO" \
+              "Hugging Face Space keep-alive failed" \
+              "The EEG-DIM Visualizer API could not be reached.
+
+Space URL:
+$SPACE_URL
+
+Please check the Hugging Face Space status."
+
+            exit 1
+          fi
+
+      - name: Save success counter
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .hf-ping-state
+          key: hf-ping-state-${{ github.run_id }}
