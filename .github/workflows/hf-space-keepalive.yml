@@ -4,10 +4,8 @@ on:
   schedule:
     # Run every 12 hours.
     # GitHub Actions cron uses UTC time.
-    # 05:17 UTC and 17:17 UTC are intentionally not on the exact hour.
     - cron: "17 5,17 * * *"
 
-  # Allows manual testing from the GitHub Actions page.
   workflow_dispatch:
 
 jobs:
@@ -31,7 +29,6 @@ jobs:
             hf-ping-state-
 
       - name: Ping Hugging Face Space
-        id: ping
         shell: bash
         run: |
           mkdir -p .hf-ping-state
@@ -46,13 +43,8 @@ jobs:
             SUBJECT="$2"
             BODY="$3"
 
-            cat > /tmp/mail.txt <<EOF
-From: $SMTP_USERNAME
-To: $TO
-Subject: $SUBJECT
-
-$BODY
-EOF
+            printf "From: %s\nTo: %s\nSubject: %s\n\n%s\n" \
+              "$SMTP_USERNAME" "$TO" "$SUBJECT" "$BODY" > /tmp/mail.txt
 
             curl --url "smtps://smtp.gmail.com:465" \
               --ssl-reqd \
@@ -77,14 +69,16 @@ EOF
             if [ "$COUNT" -ge 4 ]; then
               echo "Reached 4 successful pings. Sending success email."
 
-              send_mail "$SUCCESS_TO" \
-                "Hugging Face Space keep-alive succeeded for 48 hours" \
-                "The EEG-DIM Visualizer API has been successfully reached 4 consecutive times over approximately 48 hours.
+              SUCCESS_BODY="The EEG-DIM Visualizer API has been successfully reached 4 consecutive times over approximately 48 hours.
 
 Space URL:
 $SPACE_URL
 
 This means the scheduled keep-alive workflow is working."
+
+              send_mail "$SUCCESS_TO" \
+                "Hugging Face Space keep-alive succeeded for 48 hours" \
+                "$SUCCESS_BODY"
 
               COUNT=0
             fi
@@ -97,14 +91,16 @@ This means the scheduled keep-alive workflow is working."
             echo "Ping failed."
             echo "0" > "$COUNT_FILE"
 
-            send_mail "$FAILURE_TO" \
-              "Hugging Face Space keep-alive failed" \
-              "The EEG-DIM Visualizer API could not be reached.
+            FAILURE_BODY="The EEG-DIM Visualizer API could not be reached.
 
 Space URL:
 $SPACE_URL
 
 Please check the Hugging Face Space status."
+
+            send_mail "$FAILURE_TO" \
+              "Hugging Face Space keep-alive failed" \
+              "$FAILURE_BODY"
 
             exit 1
           fi
